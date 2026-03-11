@@ -1,4 +1,4 @@
-# LLM Application Development Environment
+# LLM application development environment
 
 A ready-to-use LLM application development environment for VS Code. Includes **LangChain**, **LlamaIndex**, **Hugging Face Transformers**, **vLLM** (GPU only), and API clients for OpenAI and Anthropic. Available in both GPU and CPU-only configurations.
 
