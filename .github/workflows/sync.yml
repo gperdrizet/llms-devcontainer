@@ -1,25 +1,33 @@
-name: Sync version tag
+name: Sync release from docker-images
 
 on:
   repository_dispatch:
     types: [docker-images-release]
 
 jobs:
-  tag:
-    name: Create matching release
+  tag-release:
+    name: Create matching tag and release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
 
-      - name: Create version tag and release
+      - name: Create git tag and GitHub release
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_DISPATCH_TOKEN: ${{ secrets.GH_DISPATCH_TOKEN }}
           VERSION: ${{ github.event.client_payload.version }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag "v$VERSION"
-          git push origin "v$VERSION"
-          gh release create "v$VERSION" \
-            --title "v$VERSION" \
-            --notes "Synced with [docker-images v$VERSION](https://github.com/gperdrizet/docker-images/releases/tag/v$VERSION)"
+          git remote set-url origin "https://x-access-token:${GH_DISPATCH_TOKEN}@github.com/${{ github.repository }}.git"
+          git tag "v${VERSION}"
+          git push origin "v${VERSION}"
+          curl -s -X POST \
+            -H "Authorization: Bearer $GH_DISPATCH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/releases" \
+            -d "$(jq -n \
+              --arg tag "v${VERSION}" \
+              '{tag_name: $tag, name: $tag, generate_release_notes: true}')"
+          echo "Created release v${VERSION}"
