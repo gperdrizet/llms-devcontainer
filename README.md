@@ -13,7 +13,7 @@ A ready-to-use LLM application development environment for VS Code. Includes **L
 
 ## What's included
 
-### GPU Environment
+### GPU environment
 
 | Category | Details |
 |----------|---------|
@@ -25,7 +25,7 @@ A ready-to-use LLM application development environment for VS Code. Includes **L
 | **Vector Store** | ChromaDB, sentence-transformers |
 | **Tools** | Gradio, accelerate, datasets, tiktoken |
 
-### CPU Environment
+### CPU environment
 
 | Category | Details |
 |----------|---------|
@@ -58,14 +58,14 @@ llms-devcontainer/
 
 ## Requirements
 
-### GPU Environment
+### GPU environment
 - **NVIDIA GPU** (Pascal or newer) with driver ≥570
 - **Docker** with GPU support ([Windows](https://docs.docker.com/desktop/setup/install/windows-install) | [Linux](https://docs.docker.com/desktop/setup/install/linux))
 - **VS Code** with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
 > **Linux users:** Also install the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 
-### CPU Environment
+### CPU environment
 - **Docker** ([Windows](https://docs.docker.com/desktop/setup/install/windows-install) | [Linux](https://docs.docker.com/desktop/setup/install/linux))
 - **VS Code** with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
@@ -136,7 +136,7 @@ pip install <package-name>
 
 > **Note:** Packages installed this way will be lost when the container is rebuilt.
 
-### Using requirements.txt (Recommended)
+### Using requirements.txt (recommended)
 
 For persistent packages that survive container rebuilds:
 
@@ -155,7 +155,7 @@ For persistent packages that survive container rebuilds:
 
 Now your packages will be automatically installed whenever the container is created.
 
-## Gradio Web UI
+## Gradio web UI
 
 Both environments include Gradio for building interactive demos. To run a Gradio app:
 
