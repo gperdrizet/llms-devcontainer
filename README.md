@@ -1,6 +1,6 @@
 # LLM application development environment
 
-A ready-to-use LLM application development environment for VS Code. Includes **LangChain**, **LlamaIndex**, **Hugging Face Transformers**, **vLLM** (GPU only), and API clients for OpenAI and Anthropic. Available in both GPU and CPU-only configurations.
+A ready-to-use LLM application development environment for VS Code. Includes **LangChain**, **LlamaIndex**, **Hugging Face Transformers**, and API clients for OpenAI and Anthropic. Available in both GPU and CPU-only configurations.
 
 ## What's included
 
@@ -8,10 +8,10 @@ A ready-to-use LLM application development environment for VS Code. Includes **L
 
 | Category | Details |
 |----------|---------|
-| **Base Image** | NVIDIA PyTorch 24.08 |
-| **GPU** | CUDA 12.6, PyTorch 2.4 (GPU-enabled) |
-| **Python** | 3.10 |
-| **LLM Frameworks** | LangChain, LlamaIndex, Transformers, smolagents, vLLM |
+| **Base Image** | `nvidia/cuda:12.8.1-cudnn-runtime-ubuntu24.04` |
+| **GPU** | CUDA 12.8, PyTorch 2.11.0 (custom wheel, Pascal-Blackwell) |
+| **Python** | 3.12 |
+| **LLM Frameworks** | LangChain, LlamaIndex, Transformers, smolagents |
 | **API Clients** | OpenAI, Anthropic, Ollama |
 | **Vector Store** | ChromaDB, sentence-transformers |
 | **Tools** | Gradio, accelerate, datasets, tiktoken |
@@ -20,8 +20,8 @@ A ready-to-use LLM application development environment for VS Code. Includes **L
 
 | Category | Details |
 |----------|---------|
-| **Base Image** | Python 3.11-slim |
-| **Python** | 3.11, PyTorch (CPU) |
+| **Base Image** | `python:3.12-slim` |
+| **Python** | 3.12, PyTorch (CPU) |
 | **LLM Frameworks** | LangChain, LlamaIndex, Transformers, smolagents |
 | **API Clients** | OpenAI, Anthropic, Ollama |
 | **Vector Store** | ChromaDB, sentence-transformers |
@@ -50,7 +50,7 @@ llms-devcontainer/
 ## Requirements
 
 ### GPU Environment
-- **NVIDIA GPU** (Pascal or newer) with driver ≥545
+- **NVIDIA GPU** (Pascal or newer) with driver ≥570
 - **Docker** with GPU support ([Windows](https://docs.docker.com/desktop/setup/install/windows-install) | [Linux](https://docs.docker.com/desktop/setup/install/linux))
 - **VS Code** with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
@@ -179,8 +179,7 @@ git merge upstream/main
 |---------|----------|
 | Docker won't start | Enable virtualization in BIOS |
 | Permission denied (Linux) | Add user to docker group, then log out/in |
-| GPU not detected | Update NVIDIA drivers (≥545), install NVIDIA Container Toolkit |
+| GPU not detected | Update NVIDIA drivers (≥570), install NVIDIA Container Toolkit |
 | Container build fails | Check internet connection |
-| vLLM not available | vLLM requires GPU; use the GPU devcontainer |
 | Module not found | Rebuild container after adding to requirements.txt |
 

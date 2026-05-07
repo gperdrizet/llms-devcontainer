@@ -2,7 +2,7 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
 	// Container definition for CPU only LLM application development environment
-	"name": "LLM devcontainer CPU",
+	"name": "LLM CPU",
 	"image": "gperdrizet/llms-cpu",
     "runArgs": [
 		"--network=bridge"            // Explicitly use bridge network for internet access
