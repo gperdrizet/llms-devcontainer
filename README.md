@@ -10,7 +10,7 @@
 [![Docker Pulls llms-cpu](https://img.shields.io/docker/pulls/gperdrizet/llms-cpu?label=llms-cpu&logo=docker)](https://hub.docker.com/r/gperdrizet/llms-cpu)
 [![Docker Pulls llms-mac](https://img.shields.io/docker/pulls/gperdrizet/llms-mac?label=llms-mac&logo=docker)](https://hub.docker.com/r/gperdrizet/llms-mac)
 
-A ready-to-use LLM application development environment for VS Code. Includes **LangChain**, **Hugging Face Transformers**, and **smolagents**. Available in three configurations: NVIDIA GPU, CPU-only, and Mac (Apple Silicon).
+A ready-to-use LLM application development environment for VS Code. Includes **LangChain**, **LlamaIndex**, **Hugging Face Transformers**, and **smolagents**. Available in three configurations: NVIDIA GPU, CPU-only, and Mac (Apple Silicon).
 
 ## What's included
 
