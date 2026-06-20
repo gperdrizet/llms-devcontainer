@@ -12,172 +12,96 @@
 
 A ready-to-use LLM application development environment for VS Code. Includes **LangChain**, **LlamaIndex**, **Hugging Face Transformers**, and **smolagents**. Available in three configurations: NVIDIA GPU, CPU-only, and Mac (Apple Silicon).
 
-## What's included
-
-### GPU environment
-
-| Category | Details |
-|----------|---------|
-| **Base Image** | `nvidia/cuda:12.8.1-cudnn-runtime-ubuntu24.04` |
-| **GPU** | CUDA 12.8, PyTorch 2.11.0 (custom wheel, Pascal-Blackwell) |
-| **Python** | 3.12 |
-| **LLM Frameworks** | LangChain, LlamaIndex, Transformers, smolagents |
-| **API Clients** | OpenAI, Anthropic, Ollama |
-| **Vector Store** | ChromaDB, sentence-transformers |
-| **Tools** | Gradio, accelerate, datasets, tiktoken |
-
-### CPU environment
-
-| Category | Details |
-|----------|----------|
-| **Base Image** | `python:3.12-slim` |
-| **Python** | 3.12, PyTorch (CPU) |
-| **LLM Frameworks** | LangChain, Transformers, smolagents |
-| **API Clients** | OpenAI, Anthropic, Ollama |
-| **Vector Store** | ChromaDB, sentence-transformers |
-| **Tools** | Gradio, accelerate, datasets, tiktoken |
-
-### Mac environment
-
-| Category | Details |
-|----------|----------|
-| **Base Image** | `python:3.12-slim` (linux/arm64) |
-| **Python** | 3.12, PyTorch (ARM64, from PyPI) |
-| **LLM Frameworks** | LangChain, Transformers, smolagents |
-| **API Clients** | OpenAI, Anthropic, Ollama (ARM64 binary) |
-| **Vector Store** | ChromaDB, sentence-transformers |
-| **Tools** | Gradio, accelerate, datasets, tiktoken |
-
-
-## Project structure
-
-```
-llms-devcontainer/
-├── .devcontainer/
-│   ├── nvidia/
-│   │   └── devcontainer.json   # NVIDIA GPU dev container configuration
-│   ├── cpu/
-│   │   └── devcontainer.json   # CPU dev container configuration
-│   └── mac/
-│       └── devcontainer.json   # Mac (ARM64) dev container configuration
-├── data/                       # Store datasets here
-├── logs/                       # Training/experiment logs
-├── models/                     # Saved model files
-├── src/
-│   └── environment_test.py     # Verify your setup
-├── .gitignore
-├── LICENSE
-└── README.md
-```
-
 ## Requirements
 
-### GPU environment
-- **NVIDIA GPU** (Pascal or newer) with driver ≥570
-- **Docker** with GPU support ([Windows](https://docs.docker.com/desktop/setup/install/windows-install) | [Linux](https://docs.docker.com/desktop/setup/install/linux))
-- **VS Code** with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+**All users**
+- [Docker Desktop](https://docs.docker.com/desktop/) (Windows / Mac) or [Docker Engine](https://docs.docker.com/engine/install/) (Linux)
+- [VS Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-> **Linux users:** Also install the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+**NVIDIA GPU users** (also required)
+- NVIDIA driver ≥570 ([download](https://www.nvidia.com/Download/index.aspx))
+- [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) *(Linux only - not needed on Windows)*
 
-### CPU environment
-- **Docker** ([Windows](https://docs.docker.com/desktop/setup/install/windows-install) | [Linux](https://docs.docker.com/desktop/setup/install/linux))
-- **VS Code** with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-
-### Mac environment
-- **Docker Desktop for Mac** (Apple Silicon): [install guide](https://docs.docker.com/desktop/setup/install/mac-install/)
-- **VS Code** with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-
-> **Note:** GPU acceleration is not available inside Docker containers on Apple Silicon. Metal/MPS is a macOS-only framework with no Docker passthrough. The Mac configuration provides native ARM64 CPU performance.
-
-### GPU compatibility
-
-The GPU environment requires an NVIDIA GPU with **compute capability 6.0+** (Pascal architecture or newer):
-
-| Architecture | Example GPUs | Compute Capability |
-|--------------|--------------|-------------------|
-| Pascal | GTX 1050–1080, Tesla P100 | 6.0–6.1 |
-| Volta | Tesla V100, Titan V | 7.0 |
-| Turing | RTX 2060–2080, GTX 1660 | 7.5 |
-| Ampere | RTX 3060–3090, A100 | 8.0–8.6 |
-| Ada Lovelace | RTX 4060–4090 | 8.9 |
-| Hopper | H100, H200 | 9.0 |
-| Blackwell | RTX 5070–5090, B100, B200 | 10.0 |
-
-Check your GPU's compute capability: [NVIDIA CUDA GPUs](https://developer.nvidia.com/cuda-gpus)
+> **Mac users:** GPU acceleration (Metal/MPS) does not pass through to Docker containers. The Mac configuration uses native ARM64 CPU, no extra setup needed beyond Docker Desktop.
 
 ## Quick start
 
-1. **Fork** this repository (click "Fork" button above)
+1. **Fork** this repository (click **Fork** at the top of this page)
 
 2. **Clone** your fork:
    ```bash
    git clone https://github.com/<your-username>/llms-devcontainer.git
    ```
 
-3. **Open VS Code**
+3. **Open the folder in VS Code**, then open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) and run **Dev Containers: Open Folder in Container**
 
-4. **Open Folder in Container** from the VS Code command palette (Ctrl+Shift+P), start typing `Open Folder in`...
-   - Select **LLM NVIDIA** if your machine has a compatible NVIDIA GPU, **LLM Mac** if you're on Apple Silicon, or **LLM CPU** otherwise.
+   > VS Code will ask which configuration to use, pick the one that matches your machine (see table below).
 
-5. **Verify** by running `python src/environment_test.py`
+4. **Verify** your setup by running `python src/environment_test.py`
+
+## Which configuration should I use?
+
+| If you have... | Choose this |
+|----------------|-------------|
+| NVIDIA GPU (GTX 10xx / RTX / Quadro / Tesla) | **LLM NVIDIA** |
+| Windows or Linux machine, no NVIDIA GPU | **LLM CPU** |
+| Apple Silicon Mac (M1 / M2 / M3 / M4) | **LLM Mac** |
+
+Not sure if your GPU is compatible? Check: [NVIDIA CUDA GPUs](https://developer.nvidia.com/cuda-gpus) (need compute capability ≥6.0).
 
 ## Using as a template for new projects
 
-You can use your fork as a template to quickly create new LLM application projects:
+Fork this repo once, then use it as a GitHub template to spin up new projects instantly.
 
-### One-time setup: Make your fork a template
-
-1. Go to your fork on GitHub
-2. Click **Settings** → scroll to **Template repository**
-3. Check the box to enable it
-
-### Creating a new project from your template
+### One-time setup
 
 1. Go to your fork on GitHub
-2. Click the green **Use this template** button → **Create a new repository**
-3. Enter your new repository name and settings
-4. Click **Create repository**
-5. **Clone** your new repository:
+2. Click **Settings** → scroll to **Template repository** → enable it
+
+### Creating a new project
+
+1. Go to your fork and click **Use this template** → **Create a new repository**
+2. Name your new repo and click **Create repository**
+3. Clone it and start working:
    ```bash
    git clone https://github.com/<your-username>/my-new-project.git
    ```
 
-Now you have a fresh LLM application project with the dev container configuration ready to go!
+4. **Clean it up** - remove anything that doesn't belong to your project:
+   - Update `README.md` to describe your project
+   - Delete unused devcontainer configs (e.g. if you only use CPU, remove `nvidia/` and `mac/`)
+   - Replace `src/environment_test.py` with your own source files
+   - Clear `logs/`, `models/`, and `data/`
+   ```bash
+   git add -A && git commit -m "Initial project setup" && git push
+   ```
 
 ## Adding Python packages
 
-### Using pip directly
-
-Install packages in the container terminal:
+### Temporary (lost on container rebuild)
 
 ```bash
 pip install <package-name>
 ```
 
-> **Note:** Packages installed this way will be lost when the container is rebuilt.
+### Permanent (recommended)
 
-### Using requirements.txt (recommended)
-
-For persistent packages that survive container rebuilds:
-
-1. **Create** a `requirements.txt` file in the repository root:
+1. Create a `requirements.txt` in the repository root:
    ```
-   langchain-community
-   faiss-cpu
+   openai
+   langchain-openai
    ```
 
-2. **Update** the appropriate `.devcontainer/*/devcontainer.json` to install packages on container creation by adding a `postCreateCommand`:
+2. Add a `postCreateCommand` to the relevant `.devcontainer/*/devcontainer.json`:
    ```json
    "postCreateCommand": "pip install -r requirements.txt"
    ```
 
-3. **Rebuild** the container (`F1` → "Dev Containers: Rebuild Container")
+3. Rebuild the container (`Ctrl+Shift+P` → **Dev Containers: Rebuild Container**)
 
-Now your packages will be automatically installed whenever the container is created.
+## Running Gradio apps
 
-## Gradio web UI
-
-Both environments include Gradio for building interactive demos. To run a Gradio app:
+Gradio is included for building interactive demos. To run a Gradio app:
 
 ```python
 import gradio as gr
@@ -189,26 +113,96 @@ demo = gr.Interface(fn=greet, inputs="text", outputs="text")
 demo.launch(server_name="0.0.0.0")
 ```
 
-The default Gradio port (7860) is accessible from your host machine.
+Port 7860 is published by the container, so the app is accessible at `http://localhost:7860` on your host machine.
 
 ## Keeping your fork updated
 
 ```bash
-# Add upstream (once)
+# Add upstream once
 git remote add upstream https://github.com/gperdrizet/llms-devcontainer.git
 
-# Sync
-git fetch upstream
-git merge upstream/main
+# Pull in updates
+git fetch upstream && git merge upstream/main
+```
+
+## What's included
+
+### NVIDIA environment
+
+| Category | Details |
+|----------|---------|
+| **Base image** | `nvidia/cuda:12.8.1-cudnn-runtime-ubuntu24.04` |
+| **GPU** | CUDA 12.8, PyTorch 2.11.0 (custom wheel, Pascal-Blackwell) |
+| **Python** | 3.12 |
+| **LLM frameworks** | LangChain, LlamaIndex, Transformers, smolagents |
+| **API clients** | OpenAI, Anthropic, Ollama |
+| **Vector store** | ChromaDB, sentence-transformers |
+| **Tools** | Gradio, accelerate, datasets, tiktoken |
+
+### CPU environment
+
+| Category | Details |
+|----------|---------|
+| **Base image** | `python:3.12-slim` |
+| **Python** | 3.12, PyTorch (CPU) |
+| **LLM frameworks** | LangChain, LlamaIndex, Transformers, smolagents |
+| **API clients** | OpenAI, Anthropic, Ollama |
+| **Vector store** | ChromaDB, sentence-transformers |
+| **Tools** | Gradio, accelerate, datasets, tiktoken |
+
+### Mac environment
+
+| Category | Details |
+|----------|---------|
+| **Base image** | `python:3.12-slim` (linux/arm64) |
+| **Python** | 3.12, PyTorch (ARM64, from PyPI) |
+| **LLM frameworks** | LangChain, LlamaIndex, Transformers, smolagents |
+| **API clients** | OpenAI, Anthropic, Ollama (ARM64 binary) |
+| **Vector store** | ChromaDB, sentence-transformers |
+| **Tools** | Gradio, accelerate, datasets, tiktoken |
+
+## GPU compatibility (NVIDIA)
+
+Requires compute capability ≥6.0 (Pascal / GTX 10xx or newer):
+
+| Architecture | Example GPUs | Compute Capability |
+|--------------|--------------|-------------------|
+| Pascal | GTX 1050-1080, Tesla P100 | 6.0-6.1 |
+| Volta | Tesla V100, Titan V | 7.0 |
+| Turing | RTX 2060-2080, GTX 1660 | 7.5 |
+| Ampere | RTX 3060-3090, A100 | 8.0-8.6 |
+| Ada Lovelace | RTX 4060-4090 | 8.9 |
+| Hopper | H100, H200 | 9.0 |
+| Blackwell | RTX 5070-5090, B100, B200 | 10.0 |
+
+## Project structure
+
+```
+llms-devcontainer/
+├── .devcontainer/
+│   ├── nvidia/
+│   │   └── devcontainer.json   # NVIDIA GPU configuration
+│   ├── cpu/
+│   │   └── devcontainer.json   # CPU configuration
+│   └── mac/
+│       └── devcontainer.json   # Mac (ARM64) configuration
+├── data/                       # Store datasets here
+├── logs/                       # Training/experiment logs
+├── models/                     # Saved model files
+├── src/
+│   └── environment_test.py     # Verify your setup
+├── .gitignore
+├── LICENSE
+└── README.md
 ```
 
 ## Troubleshooting
 
 | Problem | Solution |
 |---------|----------|
-| Docker won't start | Enable virtualization in BIOS |
-| Permission denied (Linux) | Add user to docker group, then log out/in |
-| GPU not detected | Update NVIDIA drivers (≥570), install NVIDIA Container Toolkit |
-| Container build fails | Check internet connection |
-| Module not found | Rebuild container after adding to requirements.txt |
+| Docker won't start | Enable virtualization in BIOS / enable WSL2 on Windows |
+| Permission denied (Linux) | Add your user to the docker group, then log out and back in |
+| GPU not detected | Update NVIDIA drivers (≥570); Linux: install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) |
+| Container build fails | Check your internet connection |
+| Module not found | Add the package to `requirements.txt` and rebuild the container |
 
