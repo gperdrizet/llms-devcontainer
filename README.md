@@ -54,7 +54,7 @@ A ready-to-use LLM application development environment for VS Code. Includes **L
 ```
 llms-devcontainer/
 ├── .devcontainer/
-│   ├── gpu/
+│   ├── nvidia/
 │   │   └── devcontainer.json   # NVIDIA GPU dev container configuration
 │   ├── cpu/
 │   │   └── devcontainer.json   # CPU dev container configuration
