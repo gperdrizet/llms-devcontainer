@@ -134,6 +134,7 @@ git fetch upstream && git merge upstream/main
 | **Base image** | `nvidia/cuda:12.8.1-cudnn-runtime-ubuntu24.04` |
 | **GPU** | CUDA 12.8, PyTorch 2.11.0 (custom wheel, Pascal-Blackwell) |
 | **Python** | 3.12 |
+| **Jupyter** | JupyterLab, ipykernel, ipywidgets |
 | **LLM frameworks** | LangChain, LlamaIndex, Transformers, smolagents |
 | **API clients** | OpenAI, Anthropic, Ollama |
 | **Vector store** | ChromaDB, sentence-transformers |
@@ -145,6 +146,7 @@ git fetch upstream && git merge upstream/main
 |----------|---------|
 | **Base image** | `python:3.12-slim` |
 | **Python** | 3.12, PyTorch (CPU) |
+| **Jupyter** | JupyterLab, ipykernel, ipywidgets |
 | **LLM frameworks** | LangChain, LlamaIndex, Transformers, smolagents |
 | **API clients** | OpenAI, Anthropic, Ollama |
 | **Vector store** | ChromaDB, sentence-transformers |
@@ -156,6 +158,7 @@ git fetch upstream && git merge upstream/main
 |----------|---------|
 | **Base image** | `python:3.12-slim` (linux/arm64) |
 | **Python** | 3.12, PyTorch (ARM64, from PyPI) |
+| **Jupyter** | JupyterLab, ipykernel, ipywidgets |
 | **LLM frameworks** | LangChain, LlamaIndex, Transformers, smolagents |
 | **API clients** | OpenAI, Anthropic, Ollama (ARM64 binary) |
 | **Vector store** | ChromaDB, sentence-transformers |
