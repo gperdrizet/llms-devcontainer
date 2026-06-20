@@ -8,8 +8,9 @@
 [![LangChain](https://img.shields.io/badge/LangChain-latest-1C3C3C?logo=langchain&logoColor=white)](https://www.langchain.com/)
 [![Docker Pulls llms-nvidia](https://img.shields.io/docker/pulls/gperdrizet/llms-nvidia?label=llms-nvidia&logo=docker)](https://hub.docker.com/r/gperdrizet/llms-nvidia)
 [![Docker Pulls llms-cpu](https://img.shields.io/docker/pulls/gperdrizet/llms-cpu?label=llms-cpu&logo=docker)](https://hub.docker.com/r/gperdrizet/llms-cpu)
+[![Docker Pulls llms-mac](https://img.shields.io/docker/pulls/gperdrizet/llms-mac?label=llms-mac&logo=docker)](https://hub.docker.com/r/gperdrizet/llms-mac)
 
-A ready-to-use LLM application development environment for VS Code. Includes **LangChain**, **LlamaIndex**, **Hugging Face Transformers**, and API clients for OpenAI and Anthropic. Available in both GPU and CPU-only configurations.
+A ready-to-use LLM application development environment for VS Code. Includes **LangChain**, **Hugging Face Transformers**, and **smolagents**. Available in three configurations: NVIDIA GPU, CPU-only, and Mac (Apple Silicon).
 
 ## What's included
 
@@ -28,11 +29,22 @@ A ready-to-use LLM application development environment for VS Code. Includes **L
 ### CPU environment
 
 | Category | Details |
-|----------|---------|
+|----------|----------|
 | **Base Image** | `python:3.12-slim` |
 | **Python** | 3.12, PyTorch (CPU) |
-| **LLM Frameworks** | LangChain, LlamaIndex, Transformers, smolagents |
+| **LLM Frameworks** | LangChain, Transformers, smolagents |
 | **API Clients** | OpenAI, Anthropic, Ollama |
+| **Vector Store** | ChromaDB, sentence-transformers |
+| **Tools** | Gradio, accelerate, datasets, tiktoken |
+
+### Mac environment
+
+| Category | Details |
+|----------|----------|
+| **Base Image** | `python:3.12-slim` (linux/arm64) |
+| **Python** | 3.12, PyTorch (ARM64, from PyPI) |
+| **LLM Frameworks** | LangChain, Transformers, smolagents |
+| **API Clients** | OpenAI, Anthropic, Ollama (ARM64 binary) |
 | **Vector Store** | ChromaDB, sentence-transformers |
 | **Tools** | Gradio, accelerate, datasets, tiktoken |
 
@@ -43,9 +55,11 @@ A ready-to-use LLM application development environment for VS Code. Includes **L
 llms-devcontainer/
 ├── .devcontainer/
 │   ├── gpu/
-│   │   └── devcontainer.json   # GPU dev container configuration
-│   └── cpu/
-│       └── devcontainer.json   # CPU dev container configuration
+│   │   └── devcontainer.json   # NVIDIA GPU dev container configuration
+│   ├── cpu/
+│   │   └── devcontainer.json   # CPU dev container configuration
+│   └── mac/
+│       └── devcontainer.json   # Mac (ARM64) dev container configuration
 ├── data/                       # Store datasets here
 ├── logs/                       # Training/experiment logs
 ├── models/                     # Saved model files
@@ -68,6 +82,12 @@ llms-devcontainer/
 ### CPU environment
 - **Docker** ([Windows](https://docs.docker.com/desktop/setup/install/windows-install) | [Linux](https://docs.docker.com/desktop/setup/install/linux))
 - **VS Code** with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+### Mac environment
+- **Docker Desktop for Mac** (Apple Silicon): [install guide](https://docs.docker.com/desktop/setup/install/mac-install/)
+- **VS Code** with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+> **Note:** GPU acceleration is not available inside Docker containers on Apple Silicon. Metal/MPS is a macOS-only framework with no Docker passthrough. The Mac configuration provides native ARM64 CPU performance.
 
 ### GPU compatibility
 
@@ -97,7 +117,7 @@ Check your GPU's compute capability: [NVIDIA CUDA GPUs](https://developer.nvidia
 3. **Open VS Code**
 
 4. **Open Folder in Container** from the VS Code command palette (Ctrl+Shift+P), start typing `Open Folder in`...
-   - Select the **GPU** or **CPU** configuration when prompted
+   - Select **LLM NVIDIA** if your machine has a compatible NVIDIA GPU, **LLM Mac** if you're on Apple Silicon, or **LLM CPU** otherwise.
 
 5. **Verify** by running `python src/environment_test.py`
 
