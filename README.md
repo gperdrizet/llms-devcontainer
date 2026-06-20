@@ -6,6 +6,7 @@
 [![CUDA](https://img.shields.io/badge/CUDA-12.8-76B900?logo=nvidia&logoColor=white)](https://developer.nvidia.com/cuda-toolkit)
 [![Transformers](https://img.shields.io/badge/🤗_Transformers-latest-FFD21E)](https://huggingface.co/docs/transformers)
 [![LangChain](https://img.shields.io/badge/LangChain-latest-1C3C3C?logo=langchain&logoColor=white)](https://www.langchain.com/)
+[![Ollama](https://img.shields.io/badge/Ollama-latest-000000?logo=ollama&logoColor=white)](https://ollama.com/)
 [![Docker Pulls llms-nvidia](https://img.shields.io/docker/pulls/gperdrizet/llms-nvidia?label=llms-nvidia&logo=docker)](https://hub.docker.com/r/gperdrizet/llms-nvidia)
 [![Docker Pulls llms-cpu](https://img.shields.io/docker/pulls/gperdrizet/llms-cpu?label=llms-cpu&logo=docker)](https://hub.docker.com/r/gperdrizet/llms-cpu)
 [![Docker Pulls llms-mac](https://img.shields.io/docker/pulls/gperdrizet/llms-mac?label=llms-mac&logo=docker)](https://hub.docker.com/r/gperdrizet/llms-mac)
